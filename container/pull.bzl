@@ -217,7 +217,7 @@ def _impl(repository_ctx):
 
     kwargs = {}
 
-    if ctx.attr.insecure_repository:
+    if repository_ctx.attr.insecure_repository:
         args += [ "-insecure-repository"]
 
     if "PULLER_TIMEOUT" in repository_ctx.os.environ:
