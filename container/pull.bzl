@@ -112,6 +112,10 @@ _container_pull_attrs = {
         cfg = "exec",
         doc = "Exposed to provide a way to test other pullers on Linux",
     ),
+    "insecure_repository": attr.bool(
+        default = False,
+        doc = "Whether the repository is insecure or not (http vs https)",
+    ),
     "registry": attr.string(
         mandatory = True,
         doc = "The registry from which we are pulling.",
@@ -212,6 +216,9 @@ def _impl(repository_ctx):
         ]
 
     kwargs = {}
+
+    if ctx.attr.insecure_repository:
+        args += [ "-insecure-repository"]
 
     if "PULLER_TIMEOUT" in repository_ctx.os.environ:
         timeout_in_secs = repository_ctx.os.environ["PULLER_TIMEOUT"]
